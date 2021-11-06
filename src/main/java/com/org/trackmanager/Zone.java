@@ -1,5 +1,11 @@
 package com.org.trackmanager;
 
+/**
+ * The zone data type
+ * 
+ * @author bgates
+ *
+ */
 public class Zone {
 	private String name;
 	private float min_x;

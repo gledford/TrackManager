@@ -1,5 +1,11 @@
 package com.org.trackmanager;
 
+/**
+ * The track data type
+ * 
+ * @author emusk
+ *
+ */
 public class Track {
 
 	private int id;

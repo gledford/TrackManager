@@ -1,22 +1,47 @@
-package com.org.trackmanager;
+/*
+ * Name:    Elon Musk
+ * JIRA-ID: TM-103
+ * Date:    04/23/1999
+ *
+ * Name:    Bill Gates
+ * JIRA-ID: TM-345
+ * Date:    06/20/2005
+ *
+ * @abstract
+ * The TrackManager handles incoming tracks from external systems. These
+ * tracks are then checked against the current defense zone to see if
+ * they break the plane of the zone. If they do, then this class holds
+ * onto the tracks and notifies the users of the threat.
+ */
 
-import java.util.ArrayList;
+package com.org.trackmanager;
 
 import com.org.dds.DDS_Alert;
 import com.org.dds.DDS_Track;
+import java.util.ArrayList;
 
+/**
+ * The TrackManager class is used to retain all tracks that are
+ * marked as threats due to entering the zones.
+ * @author emusk
+ *
+ */
 public class TrackManager {
 
 	private ArrayList<Track> qualifiedTracks;
 	private Zone zone;
 	private MessageService messageService;
-	
+
 	public TrackManager() {
 		zone = new Zone("DangerClose", 0.0F, 5.0F, 0.0F, 10.0F);
 		qualifiedTracks = new ArrayList<Track>();
 		messageService = new MessageService();
 	}
 	
+	/**
+	 * Handles the input from the message service. This is the main entry point to the class.
+	 * @param dds_track
+	 */
 	public void processTrack(DDS_Track dds_track) {
 		//get the track out of the message
 		Track track = dds_track.track;
@@ -37,7 +62,7 @@ public class TrackManager {
 					//get index of track, and use that to overwrite the previous report
 					for (int i = 0; i < qualifiedTracks.size(); i++) {
 						if (qualifiedTracks.get(i).getId() == track.getId() && qualifiedTracks.get(i).getSensor() == track.getSensor()) {
-							//overwrite the track in slot i
+							//delete it
 							qualifiedTracks.set(i, track);
 						}
 					}
