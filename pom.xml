@@ -35,19 +35,20 @@
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>2.22.2</version>
       </plugin>
-      <plugin>
       <!-- This can be run with mvn spotbugs:check -->
-	    <groupId>com.github.spotbugs</groupId>
-	    <artifactId>spotbugs-maven-plugin</artifactId>
-	    <version>4.4.1</version>
-	    <dependencies>
-	      <dependency>
-	        <groupId>com.github.spotbugs</groupId>
-	        <artifactId>spotbugs</artifactId>
-	        <version>4.4.2</version>
-	      </dependency>
-	    </dependencies>
-	  </plugin>
+      <plugin>
+		    <groupId>com.github.spotbugs</groupId>
+		    <artifactId>spotbugs-maven-plugin</artifactId>
+		    <version>4.4.1</version>
+		    <dependencies>
+		      <dependency>
+		        <groupId>com.github.spotbugs</groupId>
+		        <artifactId>spotbugs</artifactId>
+		        <version>4.4.2</version>
+		      </dependency>
+		    </dependencies>
+	    </plugin>
+	    <!-- This can be run with mvn checkstyle:checkstyle -->
 	    <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
@@ -62,6 +63,7 @@
 
   <reporting>
     <plugins>
+      <!-- This can be run with mvn pmd:pmd or mvn pmd:cpd -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
@@ -87,6 +89,7 @@
           </reportSet>
         </reportSets>
       </plugin>
+      <!-- This can be run with mvn javancss:check or mvn javancss:report -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>javancss-maven-plugin</artifactId>
