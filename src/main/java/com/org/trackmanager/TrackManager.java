@@ -17,6 +17,7 @@
 package com.org.trackmanager;
 
 import com.org.dds.DDS_Alert;
+import com.org.dds.DDS_Message;
 import com.org.dds.DDS_Track;
 import java.util.ArrayList;
 
@@ -26,19 +27,27 @@ import java.util.ArrayList;
  * @author emusk
  *
  */
-public class TrackManager {
+public class TrackManager implements MessageObserver {
 
-  private ArrayList<Track> qualifiedTracks;
-  private Zone zone;
-  private MessageService messageService;
+  private ArrayList<Track> qualifiedTracks = new ArrayList<Track>();
+  private Zone zone = new Zone("DangerClose", 0.0F, 5.0F, 0.0F, 10.0F, 0.0F, 0.0F);
+  private MessageService messageService = new MessageService();
 
   /**
    * This is a constructor.
    */
   public TrackManager() {
-    zone = new Zone("DangerClose", 0.0F, 5.0F, 0.0F, 10.0F, 0.0F, 0.0F);
-    qualifiedTracks = new ArrayList<Track>();
-    messageService = new MessageService();
+    messageService.registerObserver(DDS_Track.class, this);
+  }
+  
+  /**
+   * Callback from message service.
+   * @param message is the DDS message
+   */
+  public void onMessageReceipt(DDS_Message message) {
+    if (message instanceof DDS_Track) {
+      processTrack((DDS_Track) message);
+    }
   }
   
   /**
