@@ -70,7 +70,7 @@ public class TrackManager implements MessageObserver {
       if (exists) {
         //check if it still qualified in the zone
         //this is done by checking if the track is within the 2D zone
-        if (track.getX() < zone.getMinX() && track.getX() > zone.getMaxX() && track.getY() < zone.getMaxY() && track.getY() > zone.getMinY()) {
+        if (isWithin2DZone(track)) {
           //get index of track, and use that to overwrite the previous report
           for (int i = 0; i < qualifiedTracks.size(); i++) {
             if (qualifiedTracks.get(i).getId() == track.getId() && qualifiedTracks.get(i).getSensor() == track.getSensor()) {
@@ -94,7 +94,7 @@ public class TrackManager implements MessageObserver {
         }
       } else {
         //check if the track is in the zone - this is done by checking if the track is within the 2D zone
-        if (track.getX() > zone.getMinX() && track.getX() < zone.getMaxX() && track.getY() < zone.getMaxY() && track.getY() > zone.getMinY()) {
+        if (isWithin2DZone(track)) {
           qualifiedTracks.add(track);
           
           //send an alert to the user that the track is in the zone
@@ -113,4 +113,8 @@ public class TrackManager implements MessageObserver {
       }
     }
   }
+
+private boolean isWithin2DZone(Track track) {
+	return track.getX() > zone.getMinX() && track.getX() < zone.getMaxX() && track.getY() < zone.getMaxY() && track.getY() > zone.getMinY();
+}
 }
