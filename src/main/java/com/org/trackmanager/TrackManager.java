@@ -115,6 +115,8 @@ public class TrackManager implements MessageObserver {
   }
 
   private boolean isWithin2DZone(Track track) {
-		return track.getX() > zone.getMinX() && track.getX() < zone.getMaxX() && track.getY() < zone.getMaxY() && track.getY() > zone.getMinY();
+	  TrackZoneVerifier trackZoneVerifier = new TrackZoneVerifier();
+	  
+	  return trackZoneVerifier.isWithin2DZone(track, zone);
   }
 }
